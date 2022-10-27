@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/product/layout::head">
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm</title>
+</head>
+<body>
+<h1> Danh sách sản phẩm</h1>
+<a href="/create-product">Tạo sản phẩm mới</a>
+<form>
+    Tìm kiếm sản phẩm theo tên
+    <input name="searchName" placeholder="Nhập tên sản phẩm vào đây" type="text"/>
+    <input type="submit" value="Tìm"/>
+</form><br/>
+<table d="products" border="1">
+    <tr>
+        <th>ID</th>
+        <th>Tên sản phẩm</th>
+        <th>Mô tả sản phẩm</th>
+        <th>Giá sản phẩm($)</th>
+        <th>Ảnh sản phẩm</th>
+        <th>Thông tin</th>
+
+    </tr>
+    <th:block th:each="product : ${products}">
+        <tr>
+            <td th:text="${product.code}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td><img width="150px" height="150px" th:src="@{'/i/' + ${product.image}}"/></td>
+            <td><a th:href="@{/view-product/__${product.id}__ }">Xem</a></td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Trang trước</a>
+    <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+    <a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Trang sau</a>
+</div>
+<footer th:replace="/customer/layout :: footer"></footer>
+</body>
+</html>

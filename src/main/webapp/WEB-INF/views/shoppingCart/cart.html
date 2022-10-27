@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+    <style>
+        tr,td,th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div align="center">
+    <h1>Giỏ hàng</h1>
+    <table border="1" width="800px">
+        <tr>
+            <th>Tuỳ chọn</th>
+            <th>Mã sản phẩm</th>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá sản phẩm($)</th>
+            <th>Số lượng</th>
+            <th>Sửa số lượng</th>
+            <th>Tổng hoá đơn</th>
+        </tr>
+
+        <tr th:each="item,iterStat : ${session.cart}">
+
+            <td>
+                <a th:href="@{/shoppingcart/delete/__${item.product.id}__}">Xoá</a>
+            </td>
+            <td th:text="${item.product.code}"></td>
+            <td align="center"><img width="150px" height="150px" th:src="@{'/i/' + ${item.product.image}}"></td>
+            <td th:text="${item.product.name}"></td>
+            <td th:text="${item.product.price}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td><a th:href="@{/shoppingcart/edit-quantity/__${item.product.id}__}">Sửa</a></td>
+            <td th:text="${item.product.price * item.quantity}"></td>
+        </tr>
+
+    </table>
+    <h3><a th:href="@{/shoppingcart/deleteAll}">Xoá tất cả</a></h3>
+    <h2><a th:href="@{/products}">Tiếp tục mua sắm</a></h2>
+</div>
+
+</body>
+</html>

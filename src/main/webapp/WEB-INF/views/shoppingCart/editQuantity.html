@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa số lượng</title>
+</head>
+<body>
+<h1>Sửa số lượng</h1>
+<p><a href="/products">Quay lại danh sách sản phẩm</a> </p>
+
+<form th:action="@{/shoppingcart/update-quantity/__${item.product.id}__}" th:object="${item}" method="post">
+    <img width="150px" height="150px" th:src="@{'/i/' + ${item.product.image}}">
+    <br>
+    Tên: <span th:text="${item.product.name}"></span>
+    <br>
+    Mô tả: <span th:text="${item.product.description}"></span>
+    <br>
+    Giá($): <span th:text="${item.product.price}"></span>
+    <br>
+    Số lượng: <input th:value="${item.quantity}" name="quantity">
+    <br>
+    <input type="submit" value="Cập nhật">
+</form>
+</body>
+</html>
